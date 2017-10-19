@@ -3,6 +3,7 @@ package com.example.xjp.musicplayer.main;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.example.xjp.musicplayer.bean.MusicItem;
 
@@ -13,8 +14,17 @@ import java.util.List;
  * Created by XJP on 2017/10/9.
  */
 public class MusicManager {
+    private static MusicManager INSTANCE=null;
+    private final String TAG=this.getClass().getSimpleName();
+    private MusicManager(){
 
+    }
 
+    public static MusicManager getInstance(){
+        if(INSTANCE == null)
+            INSTANCE=new MusicManager();
+        return  INSTANCE;
+    }
 
     public List<MusicItem> findSongs(ContentResolver contentResolver ){
 
@@ -63,6 +73,7 @@ public class MusicManager {
                     MusicItem.setAlbum(album);
                     MusicItem.setAlbum_id(album_id);
                     musicItems.add(MusicItem);
+                    Log.d(TAG, "findSongs: "+title);
                 }
             }
 
